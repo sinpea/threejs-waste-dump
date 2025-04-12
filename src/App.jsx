@@ -14,11 +14,13 @@ function App() {
     console.log(windowRect);
     console.log(`Width: ${window.innerWidth},Height: ${window.innerHeight}`)
     world.current.updateSize(threediv);
-    //world.render();
+    world.current.render();
   }
   useEffect(()=>{if(rendered){
     world.current = (threediv)?new World(threediv):null;
-    (world.current)?world.current.render(threediv):console.log("s");
+    //this line is for rendering
+    //(world.current)?world.current.render():console.log("s");
+    (world.current)?world.current.start():console.log("not running");
     setRendered((state)=>false);
     console.log("hello")
   }},[])

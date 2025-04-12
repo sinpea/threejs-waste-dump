@@ -6,7 +6,7 @@ import { createRenderer } from "./components/renderer";
 import { createScene } from "./components/scene";
 import { createDirectionalLight } from "./components/directional_light";
 import { MathUtils } from "three/src/Three.Core.js";
-
+import { Loop } from "./system/loop";
 
 
 class World{
@@ -35,10 +35,13 @@ class World{
 
         this.scene.add(cube,light);
         this.contain = container;
+
+        this.loop = new Loop(this.camera,this.scene,this.renderer);
+        this.loop.updatables.push(cube);
     }
 
-    render(container){
-        console.log(`In method render -> Cam AR = ${this.camera.aspect}\n-> Container details = ${container.current.getBoundingClientRect().width}`)
+    render(){
+        //console.log(`In method render -> Cam AR = ${this.camera.aspect}\n-> Container details = ${container.current.getBoundingClientRect().width}`)
         this.renderer.render(this.scene,this.camera);
     }
 
@@ -49,7 +52,14 @@ class World{
     updateSize(container){
         this.resize.sizeSetter(container,this.camera,this.renderer);
         console.log(`CAM AR = ${this.camera.aspect}`)
-        this.render(container);
+        //this.render();
+    }
+
+    start(){
+        this.loop.start();
+    }
+    stop(){
+        this.loop.stop();
     }
 }
 
