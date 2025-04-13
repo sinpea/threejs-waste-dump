@@ -1,4 +1,5 @@
 import {Clock} from "three";
+const clock = new Clock();
 
 class Loop{
     camera;
@@ -26,9 +27,10 @@ class Loop{
     }
 
     tick(){
+        const delta = clock.getDelta();
         //loop thru updatables (animatanle) list and execute each tick (physics calc) method
         for(const object of this.updatables){
-            object.tick();
+            object.tick(delta);
         }
     }
 }
